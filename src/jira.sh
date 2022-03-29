@@ -54,6 +54,20 @@ jira::makeRequest() {
     fi
 }
 
+jira::getFixVersionOf() {
+    local issue_code=$1
+
+    local issue
+    issue=$(jira::getIssueByCode "$issue_code")
+
+    if [[ $issue == false ]];then
+      echo false
+      exit 0
+    fi
+
+    echo "$issue" | jq --raw-output .fields.fixVersions[0].name
+}
+
 jira::getPriorityOf() {
     local issue_code=$1
 

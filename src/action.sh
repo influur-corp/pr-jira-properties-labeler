@@ -62,6 +62,21 @@ action::addPriorityLabel() {
     github::addLabelsToThePR "$issue_prio"
 }
 
+action::addFixVersionLabel() {
+    local issue_code=$1
+    local fix_version
+    fix_version=$(jira::getFixVersionOf "$issue_code")
+
+    if [[ $fix_version == "null" ]]; then
+      echo false
+      exit
+    fi
+
+    echo "fix_version: $fix_version"
+
+    github::addLabelsToThePR "$fix_version"
+}
+
 action::run() {
     if [[ -z "$GITHUB_REPOSITORY" ]]; then
         echo "Set the GITHUB_REPOSITORY env variable."
@@ -79,5 +94,5 @@ action::run() {
     fi
 
     echo "Adding priority label to the PR..."
-	  action::addPriorityLabel "$issue_code"
+	  action::addFixVersionLabel "$issue_code"
 }
