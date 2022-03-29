@@ -93,6 +93,8 @@ action::run() {
       exit 0
     fi
 
+    echo "issue code: $issue_code"
+
     echo "Adding priority label to the PR..."
 	  action::addFixVersionLabel "$issue_code"
 }
