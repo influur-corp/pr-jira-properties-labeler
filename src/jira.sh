@@ -36,7 +36,7 @@ jira::makeRequest() {
     response=$(
         curl -X GET \
           -H "Content-type: application/json" \
-          -H "Authorization: Basic ${jira_token}" \
+          --user nick@influur.com:${jira_token} \
           --write-out "${bodyAndHttpCodeDelimiter}%{http_code}" \
           --silent \
           "$endpoint"
